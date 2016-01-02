@@ -1,0 +1,27 @@
+{
+  "name": "touchlogger_server",
+  "version": "1.0.0",
+  "description": "Server for storing touch data received from Android devices with touchlogger installed on",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:BOOtak/touchlogger-server.git"
+  },
+  "keywords": [
+    "touchlogger",
+    "android",
+    "server"
+  ],
+  "author": "Kirill (leyfer.kirill@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BOOtak/touchlogger-server/issues"
+  },
+  "homepage": "https://github.com/BOOtak/touchlogger-server",
+  "engines": {
+    "node": "5.3.0"
+  }
+}
