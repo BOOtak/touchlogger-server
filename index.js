@@ -24,7 +24,7 @@ var server = http.createServer( function(req, res) {
                 "key": privateKeyString,
                 "padding": constants.RSA_PKCS1_PADDING
             };
-            let sessionKey = crypto.privateDecrypt(privateKey, new Buffer(payload.sessionkey, 'base64'));
+            let sessionKey = crypto.privateDecrypt(privateKey, new Buffer(payload.session_key, 'base64'));
             let decipher = crypto.createDecipheriv('aes-128-cbc', sessionKey, new Buffer(payload.iv, 'base64'));
             let decdata = decipher.update(new Buffer(payload.data, 'base64'));
             decdata += decipher.final();
