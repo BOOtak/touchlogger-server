@@ -32,7 +32,11 @@ var server = http.createServer( function(req, res) {
         req.on('end', function () {
             // console.log("Body: " + body);
             let payload = JSON.parse(body);
-            let privateKeyString = fs.readFileSync('/home/kirill/Work/thesis/rsa_2048_priv.pem',{ encoding: 'utf8' });
+            if (process.env.PRIVATE_KEY_PATH === undefined) {
+                console.error("Set PRIVATE_KEY_PATH to valid path to RSA PEM key");
+            }
+
+            let privateKeyString = fs.readFileSync(process.env.PRIVATE_KEY_PATH, { encoding: 'utf8' });
             let privateKey = {
                 "key": privateKeyString,
                 "padding": constants.RSA_PKCS1_PADDING
