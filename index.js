@@ -52,6 +52,7 @@ var server = http.createServer( function(req, res) {
             for (var i = 0; i < gestures.length; i++) {
                 gestures[i].timestamp = new Date(gestures[i].timestamp);
                 gestures[i].deviceId = payload.device_id;
+                gestures[i].deviceName = payload.device_name;
             };
 
             MongoClient.connect(url, function(err, db) {
