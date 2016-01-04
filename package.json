@@ -23,5 +23,8 @@
   "homepage": "https://github.com/BOOtak/touchlogger-server",
   "engines": {
     "node": "5.3.0"
+  },
+  "dependencies": {
+    "mongodb": "2.1.2"
   }
 }

@@ -4,6 +4,19 @@ var http = require('http');
 var fs = require('fs');
 var crypto = require('crypto');
 var constants = require('constants');
+var assert = require('assert');
+var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+
+var url = 'mongodb://localhost:27017/thesis';
+
+var insertDocument = function(db, gestures, callback) {
+    db.collection('gestures').insertMany(gestures, function(err, result) {
+        assert.equal(err, null);
+        console.log("Inserted a document into the gestures collection.");
+        callback(result);
+    });
+};
 
 var server = http.createServer( function(req, res) {
 
@@ -30,6 +43,20 @@ var server = http.createServer( function(req, res) {
             decdata += decipher.final();
 
             let ts = Date.now();
+            let gestures = JSON.parse(decdata.toString('utf-8'));
+
+            for (var i = 0; i < gestures.length; i++) {
+                gestures[i].timestamp = new Date(gestures[i].timestamp);
+                gestures[i].deviceId = payload.device_id;
+            };
+
+            MongoClient.connect(url, function(err, db) {
+                assert.equal(null, err);
+                insertDocument(db, gestures, function() {
+                    db.close();
+                });
+            });
+
             fs.writeFile(`/home/kirill/log${ts}.data`, decdata.toString('utf-8'), function (err) {
                 if (err) {
                     throw err;
