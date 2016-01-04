@@ -60,13 +60,6 @@ var server = http.createServer( function(req, res) {
                     db.close();
                 });
             });
-
-            fs.writeFile(`/home/kirill/log${ts}.data`, decdata.toString('utf-8'), function (err) {
-                if (err) {
-                    throw err;
-                };
-                console.log("File saved.");
-            });
         });
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.end('post received');
