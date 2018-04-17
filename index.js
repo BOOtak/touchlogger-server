@@ -47,17 +47,17 @@ var server = http.createServer( function(req, res) {
             decdata += decipher.final();
 
             let ts = Date.now();
-            let gestures = JSON.parse(decdata.toString('utf-8'));
+            let gesturesArray = JSON.parse(decdata.toString('utf-8')).gestures;
 
-            for (var i = 0; i < gestures.length; i++) {
-                gestures[i].timestamp = new Date(gestures[i].timestamp);
-                gestures[i].deviceId = payload.device_id;
-                gestures[i].deviceModel = payload.device_model;
+            for (var i = 0; i < gesturesArray.length; i++) {
+                gesturesArray[i].timestamp = new Date(gesturesArray[i].timestamp);
+                gesturesArray[i].deviceId = payload.device_id;
+                gesturesArray[i].deviceModel = payload.device_model;
             };
 
             MongoClient.connect(url, function(err, db) {
                 assert.equal(null, err);
-                insertDocument(db, gestures, function() {
+                insertDocument(db, gesturesArray, function() {
                     db.close();
                 });
             });
